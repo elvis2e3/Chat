@@ -10,6 +10,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 // view engine setup
+app.set('port', (process.env.PORT || 3000))
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -89,4 +90,4 @@ io.sockets.on('connection', function (socket) {
 
 });
 
-server.listen(3000);
+server.listen(app.get('port'));

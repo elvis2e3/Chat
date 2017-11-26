@@ -1,7 +1,7 @@
 {
   "name": "Chat",
-  "version": "0.0.1",
-  "main": "node server.js",
+  "version": "1.0.0",
+  "main": "server.js",
   "dependencies": {
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
