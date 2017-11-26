@@ -1,0 +1,30 @@
+doctype html(lang='en')
+head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    title Document
+    script(type='text/javascript', src='jquery.js')
+    script(type='text/javascript', src='/socket.io/socket.io.js')
+    script(type='text/javascript', src='jqm/jquery.mobile-1.4.5.min.js', charset='utf-8')
+    link(rel='stylesheet', href='jqm/jquery.mobile-1.4.5.min.css', media='screen', title='no title', charset='utf-8')
+  body
+    #login(data-role='page', data-theme='b')
+      div(data-role='header')
+        h1 Registrate
+      div(data-role='content')
+        label Nombre
+        input(type='text',name ="nombre", data-theme='a')
+        a(href="#dialogo" data-role="button" data-rel="dialog", id="enviar") Entrar
+    #dialogo(data-role='page', data-theme='b')
+      div(data-role='header')
+        h1 Chat
+      div(data-role='content')
+        p(id='dregistrado')
+        a(href='#conectados', data-role='button', data-inline='true', data-icon='plus')  Aceptar
+    #conectados(data-role='page', data-theme='b')
+      div(data-role='header')
+        h1(id='nombre')
+      div(data-role='content')
+        ul(data-role='listview' id="listaConectados")
+    script(type='text/javascript', src='chat.js', charset='utf-8')
