@@ -1,4 +1,4 @@
-var socket = io.connect('http://192.168.0.10:3000');
+var socket = io.connect('https://chat-2e3.herokuapp.com');
 var yo;
 var clientes = {};
 
