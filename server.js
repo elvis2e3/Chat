@@ -58,24 +58,42 @@ app.use(function(err, req, res, next) {
 });
 
 clients={}
+var ids = 100;
 
 io.sockets.on('connection', function (socket) {
   socket.on('add-user', function(data){
     console.log(data);
-    clients[data.username] = {
-      "socket": socket.id
+    clients[data.username+"-"+ids] = {
+      "socket": socket.id,
+      "nombre": data.username+"-"+ids
     };
-    io.sockets.emit('nuevoConectado',data.username);
+    io.sockets.connected[clients[data.username+"-"+ids].socket].emit("myids", data.username+"-"+ids);
+    io.sockets.emit('nuevoConectado',data.username+"-"+ids);
+    ids++;
+  });
+
+  socket.on('actualizarLista', function(data){
+    //console.log(">>actualizar>> "+data);
+    io.sockets.connected[clients[data].socket].emit("lista", clients);
   });
 
   socket.on('mensajePrivado', function(data){
-    console.log("enviando: " + data.mensaje + " a " + data.userR);
+    console.log("enviando: '"+ data.mensaje + "' a " + data.userR+" de "+data.userE+" con ip "+socket.handshake.address);
     if (clients[data.userR]){
-      console.log(data);
       io.sockets.connected[clients[data.userR].socket].emit("nuevoMensaje", data);
-      //io.sockets.connected[clients[data.userE].socket].emit("nuevoMensaje", data);
     } else {
       console.log("User does not exist: " + data.userR);
+    }
+  });
+
+  socket.on('salir', function(data){
+    for(var name in clients) {
+      if(name === data) {
+        delete clients[name];
+        console.log("cliente eliminado "+ name);
+        io.sockets.emit('clienteEliminado',name);
+        break;
+      }
     }
   });
 
@@ -83,6 +101,8 @@ io.sockets.on('connection', function (socket) {
     for(var name in clients) {
       if(clients[name].socket === socket.id) {
         delete clients[name];
+        console.log("cliente eliminado "+ name);
+        io.sockets.emit('clienteEliminado',name);
         break;
       }
     }

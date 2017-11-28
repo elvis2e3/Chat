@@ -23,8 +23,10 @@ head
         p(id='dregistrado')
         a(href='#conectados', data-role='button', data-inline='true', data-icon='plus')  Aceptar
     #conectados(data-role='page', data-theme='b')
-      div(data-role='header')
+      div(data-role='header' id="cabecera")
         h1(id='nombre')
+        a(href='#' data-iconpos='notext' data-icon='refresh' data-role='button' role='button' onclick="actualizar()") Actualizar
+        a(href='#login' data-iconpos='notext' data-icon='power' data-role='button' role='button' onclick="apagar()") Apagar
       div(data-role='content')
         ul(data-role='listview' id="listaConectados")
     script(type='text/javascript', src='chat.js', charset='utf-8')
